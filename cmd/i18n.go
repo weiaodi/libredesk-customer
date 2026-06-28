@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	defLang = "en-US"
+	defLang = "zh-CN"
 )
 
 // handleGetI18nLang returns the JSON language pack for the given language code.

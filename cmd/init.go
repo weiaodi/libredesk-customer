@@ -183,7 +183,7 @@ func initFS(staticDir string) stuffbin.FileSystem {
 			// Running in local/dev mode, use the local filesystem.
 			// Only include frontend dirs if they exist (frontend build is optional in dev).
 			colorlog.Red("binary unstuff failed, using local filesystem for static files")
-			files := []string{"i18n", "static"}
+			files := []string{"i18n", "static", "schema.sql"}
 			for _, d := range []string{"frontend/dist/main", "frontend/dist/widget"} {
 				if _, err := os.Stat(d); err == nil {
 					files = append(files, d)
