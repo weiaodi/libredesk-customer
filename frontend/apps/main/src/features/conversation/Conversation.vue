@@ -17,7 +17,7 @@
               class="flex items-center space-x-1 cursor-pointer bg-primary px-2 py-1 rounded text-sm"
             >
               <span class="text-secondary font-medium inline-block">
-                {{ conversationStore.current?.status }}
+                {{ conversationStore.currentStatusI18nKey ? $t(conversationStore.currentStatusI18nKey) : conversationStore.currentStatusName }}
               </span>
             </div>
           </DropdownMenuTrigger>
@@ -25,9 +25,9 @@
             <DropdownMenuItem
               v-for="status in conversationStore.statusOptions"
               :key="status.value"
-              @click="handleUpdateStatus(status.label)"
+              @click="handleUpdateStatus(status)"
             >
-              {{ status.label }}
+              {{ status.i18nKey ? $t(status.i18nKey) : status.label }}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -127,13 +127,13 @@ const downloadTranscript = async () => {
 }
 
 const handleUpdateStatus = (status) => {
-  if (status === CONVERSATION_DEFAULT_STATUSES.SNOOZED) {
+  if (status.name === CONVERSATION_DEFAULT_STATUSES.SNOOZED) {
     emitter.emit(EMITTER_EVENTS.SET_NESTED_COMMAND, {
       command: 'snooze',
       open: true
     })
     return
   }
-  conversationStore.updateStatus(status)
+  conversationStore.updateStatus(status.name)
 }
 </script>

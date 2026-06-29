@@ -14,7 +14,11 @@
       class="text-xs font-medium whitespace-nowrap tabular-nums inline-block min-w-20 mr-1"
       aria-live="polite"
     >
-      {{ t('conversation.bulkActions.selected', conversationStore.selectedCount, { count: conversationStore.selectedCount }) }}
+      {{
+        t('conversation.bulkActions.selected', conversationStore.selectedCount, {
+          count: conversationStore.selectedCount
+        })
+      }}
     </span>
 
     <!-- Assign Agent -->
@@ -99,9 +103,9 @@
         <DropdownMenuItem
           v-for="status in conversationStore.statusOptionsNoSnooze"
           :key="status.value"
-          @click="bulkUpdateStatus(status.label)"
+          @click="bulkUpdateStatus(status.name)"
         >
-          {{ status.label }}
+          {{ status.i18nKey ? t(status.i18nKey) : status.label }}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -167,16 +171,11 @@ const toggleSelectAll = () => {
   }
 }
 
-const withNoneOption = (options) => [
-  { value: 'none', label: t('globals.terms.none') },
-  ...options
-]
+const withNoneOption = (options) => [{ value: 'none', label: t('globals.terms.none') }, ...options]
 
 const agentItems = computed(() => withNoneOption(usersStore.options))
 const teamItems = computed(() => withNoneOption(teamsStore.options))
-const tagItems = computed(() =>
-  tagStore.tagNames.map((name) => ({ label: name, value: name }))
-)
+const tagItems = computed(() => tagStore.tagNames.map((name) => ({ label: name, value: name })))
 
 const runBulkAction = async (actionFn) => {
   const uuids = [...conversationStore.selectedUUIDs]
@@ -212,7 +211,9 @@ const onAssigneeSelect = (assigneeType, item) => {
 }
 
 const onTagSelect = (item) => {
-  runBulkAction((uuid) => conversationStore.updateConversationTags(uuid, TAG_ACTION.ADD, [item.value]))
+  runBulkAction((uuid) =>
+    conversationStore.updateConversationTags(uuid, TAG_ACTION.ADD, [item.value])
+  )
 }
 
 const bulkUpdateStatus = (status) => {

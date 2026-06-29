@@ -6,7 +6,11 @@ import {
   contactNavItems
 } from '../../constants/navigation'
 import { useRoute, useRouter } from 'vue-router'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@shared-ui/components/ui/collapsible'
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger
+} from '@shared-ui/components/ui/collapsible'
 import {
   Sidebar,
   SidebarContent,
@@ -362,7 +366,9 @@ const viewToDelete = ref(null)
                         <SidebarMenuButton size="sm" :isActive="isActiveParent(child.href)" asChild>
                           <router-link :to="child.href">
                             <component :is="navIconMap[child.icon]" v-if="child.icon" />
-                            <span>{{ t(child.titleKey, child.isTitleKeyPlural === true ? 2 : 1) }}</span>
+                            <span>{{
+                              t(child.titleKey, child.isTitleKeyPlural === true ? 2 : 1)
+                            }}</span>
                           </router-link>
                         </SidebarMenuButton>
                       </SidebarMenuSubItem>
@@ -422,7 +428,11 @@ const viewToDelete = ref(null)
                 </div>
                 <div class="mr-1 mt-1 transition-colors">
                   <router-link :to="{ name: 'search' }">
-                    <Search size="18" stroke-width="2.5" class="text-muted-foreground hover:text-foreground" />
+                    <Search
+                      size="18"
+                      stroke-width="2.5"
+                      class="text-muted-foreground hover:text-foreground"
+                    />
                   </router-link>
                 </div>
               </div>
@@ -435,41 +445,53 @@ const viewToDelete = ref(null)
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton @click="emit('createConversation')">
-                    <Plus />
-                    <span>{{ t('conversation.newConversation') }}</span>
+                  <Plus />
+                  <span>{{ t('conversation.newConversation') }}</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton :isActive="isActiveParent('/inboxes/assigned')" @click="navigateToInbox('assigned')">
-                    <User />
-                    <span>{{ t('globals.terms.myInbox') }}</span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-
-              <SidebarMenuItem>
-                <SidebarMenuButton :isActive="isActiveParent('/inboxes/mentioned')" @click="navigateToInbox('mentioned')">
-                    <AtSign />
-                    <span>
-                      {{ t('globals.terms.mention', 2) }}
-                    </span>
+                <SidebarMenuButton
+                  :isActive="isActiveParent('/inboxes/assigned')"
+                  @click="navigateToInbox('assigned')"
+                >
+                  <User />
+                  <span>{{ t('globals.terms.myInbox') }}</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
 
               <SidebarMenuItem>
-                <SidebarMenuButton :isActive="isActiveParent('/inboxes/unassigned')" @click="navigateToInbox('unassigned')">
-                    <CircleDashed />
-                    <span>
-                      {{ t('globals.terms.unassigned') }}
-                    </span>
+                <SidebarMenuButton
+                  :isActive="isActiveParent('/inboxes/mentioned')"
+                  @click="navigateToInbox('mentioned')"
+                >
+                  <AtSign />
+                  <span>
+                    {{ t('globals.terms.mention', 2) }}
+                  </span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
 
               <SidebarMenuItem>
-                <SidebarMenuButton :isActive="isActiveParent('/inboxes/all')" @click="navigateToInbox('all')">
-                    <List />
-                    <span>
-                      {{ t('globals.messages.all') }}
-                    </span>
+                <SidebarMenuButton
+                  :isActive="isActiveParent('/inboxes/unassigned')"
+                  @click="navigateToInbox('unassigned')"
+                >
+                  <CircleDashed />
+                  <span>
+                    {{ t('globals.terms.unassigned') }}
+                  </span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  :isActive="isActiveParent('/inboxes/all')"
+                  @click="navigateToInbox('all')"
+                >
+                  <List />
+                  <span>
+                    {{ t('globals.messages.all') }}
+                  </span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
 
@@ -483,12 +505,12 @@ const viewToDelete = ref(null)
                 <SidebarMenuItem>
                   <CollapsibleTrigger as-child>
                     <SidebarMenuButton>
-                        <span>
-                          {{ t('globals.terms.teamInbox', 2) }}
-                        </span>
-                        <ChevronRight
-                          class="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
-                        />
+                      <span>
+                        {{ t('globals.terms.teamInbox', 2) }}
+                      </span>
+                      <ChevronRight
+                        class="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
+                      />
                     </SidebarMenuButton>
                   </CollapsibleTrigger>
                   <CollapsibleContent>
@@ -508,31 +530,37 @@ const viewToDelete = ref(null)
               </Collapsible>
 
               <!-- Views -->
-              <Collapsible class="group/collapsible" defaultOpen v-model:open="viewInboxOpen" v-if="userStore.can(permissions.VIEW_MANAGE)">
+              <Collapsible
+                class="group/collapsible"
+                defaultOpen
+                v-model:open="viewInboxOpen"
+                v-if="userStore.can(permissions.VIEW_MANAGE)"
+              >
                 <SidebarMenuItem>
                   <CollapsibleTrigger asChild>
                     <SidebarMenuButton class="group/item !p-2">
-                        <span>
-                          {{ t('globals.terms.view', 2) }}
-                        </span>
-                        <div>
-                          <Plus
-                            size="18"
-                            @click.stop="openCreateViewDialog"
-                            class="rounded cursor-pointer opacity-0 transition-colors duration-200 group-hover/item:opacity-100 hover:bg-sidebar-accent text-muted-foreground hover:text-sidebar-accent-foreground p-1"
-                          />
-                        </div>
-                        <ChevronRight
-                          class="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
-                          v-if="userViews.length"
+                      <span>
+                        {{ t('globals.terms.view', 2) }}
+                      </span>
+                      <div>
+                        <Plus
+                          size="18"
+                          @click.stop="openCreateViewDialog"
+                          class="rounded cursor-pointer opacity-0 transition-colors duration-200 group-hover/item:opacity-100 hover:bg-sidebar-accent text-muted-foreground hover:text-sidebar-accent-foreground p-1"
                         />
+                      </div>
+                      <ChevronRight
+                        class="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
+                        v-if="userViews.length"
+                      />
                     </SidebarMenuButton>
                   </CollapsibleTrigger>
 
                   <CollapsibleContent>
                     <SidebarMenuSub>
                       <SidebarMenuSubItem
-                        v-for="view in userViews" :key="view.id"
+                        v-for="view in userViews"
+                        :key="view.id"
                         @mouseenter="hoveredViewId = view.id"
                         @mouseleave="hoveredViewId = null"
                       >
@@ -581,12 +609,12 @@ const viewToDelete = ref(null)
                 <SidebarMenuItem>
                   <CollapsibleTrigger asChild>
                     <SidebarMenuButton class="!p-2">
-                        <span>
-                          {{ t('globals.terms.sharedView', 2) }}
-                        </span>
-                        <ChevronRight
-                          class="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
-                        />
+                      <span>
+                        {{ t('globals.terms.sharedView', 2) }}
+                      </span>
+                      <ChevronRight
+                        class="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
+                      />
                     </SidebarMenuButton>
                   </CollapsibleTrigger>
 
@@ -598,9 +626,7 @@ const viewToDelete = ref(null)
                           :isActive="route.params.viewID == view.id"
                           @click="navigateToViewInbox(view.id)"
                         >
-                          <span class="flex-1 truncate" :title="view.name">{{
-                            view.name
-                          }}</span>
+                          <span class="flex-1 truncate" :title="view.name">{{ view.name }}</span>
                         </SidebarMenuButton>
                       </SidebarMenuSubItem>
                     </SidebarMenuSub>
@@ -641,7 +667,7 @@ const viewToDelete = ref(null)
 <style scoped>
 :deep(.sidebar-secondary) {
   @apply border ml-[3.2rem] rounded-lg overflow-hidden;
-  top: 0.40rem !important;
+  top: 0.4rem !important;
   bottom: 0.35rem !important;
   height: auto !important;
 }

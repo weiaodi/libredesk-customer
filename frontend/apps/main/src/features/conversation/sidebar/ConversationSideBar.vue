@@ -220,9 +220,9 @@ const selectTeam = (team) => {
 }
 
 const selectPriority = (priority) => {
-  conversationStore.current.priority = priority.label
+  conversationStore.current.priority = priority.name
   conversationStore.current.priority_id = priority.value
-  handlePriorityChange(priority.label)
+  handlePriorityChange(priority.name)
 }
 
 const updateContactCustomAttributes = async (attributes) => {

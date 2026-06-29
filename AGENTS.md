@@ -234,7 +234,7 @@ go test ./...
 - 数据库 settings 表中 `app.lang` 默认值为 `"zh-CN"`（`schema.sql`）
 - 可通过管理后台「设置 > 通用」修改界面语言
 - 新增语言需要同时更新前后端翻译文件
-- 可用语言列表: `da-DK`, `de-DE`, `en-US`, `es-ES`, `fa-IR`, `fr-FR`, `it-IT`, `ja-JP`, `mr-IN`, `pt-BR`, `zh-CN`
+- 可用语言列表: `en-US`, `zh-CN`
 
 ## 配置
 

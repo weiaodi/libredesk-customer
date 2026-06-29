@@ -21,7 +21,11 @@
           <Button variant="ghost" class="w-30">
             <div>
               <span class="mr-1">{{ conversationStore.conversations.total }}</span>
-              <span>{{ conversationStore.getListStatus }}</span>
+              <span>{{
+                conversationStore.statusI18nKey
+                  ? $t(conversationStore.statusI18nKey)
+                  : conversationStore.getListStatus
+              }}</span>
             </div>
             <ChevronDown class="w-4 h-4 ml-2 opacity-50" />
           </Button>
@@ -32,7 +36,7 @@
             :key="status.value"
             @click="handleStatusChange(status)"
           >
-            {{ status.label }}
+            {{ status.i18nKey ? $t(status.i18nKey) : status.label }}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -137,8 +141,15 @@
           :disabled="conversationStore.conversations.fetching"
           class="transition-all duration-200 ease-in-out transform hover:scale-105"
         >
-          <Loader2 v-if="conversationStore.conversations.fetching" class="mr-2 h-4 w-4 animate-spin" />
-          {{ conversationStore.conversations.fetching ? t('globals.terms.loading') : t('globals.terms.loadMore') }}
+          <Loader2
+            v-if="conversationStore.conversations.fetching"
+            class="mr-2 h-4 w-4 animate-spin"
+          />
+          {{
+            conversationStore.conversations.fetching
+              ? t('globals.terms.loading')
+              : t('globals.terms.loadMore')
+          }}
         </Button>
         <p
           class="text-sm text-muted-foreground"
@@ -155,7 +166,13 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { MessageCircleQuestion, MessageCircleWarning, ChevronDown, Loader2, Menu } from 'lucide-vue-next'
+import {
+  MessageCircleQuestion,
+  MessageCircleWarning,
+  ChevronDown,
+  Loader2,
+  Menu
+} from 'lucide-vue-next'
 import { Button } from '@shared-ui/components/ui/button'
 import {
   DropdownMenu,
@@ -192,7 +209,7 @@ const title = computed(() => {
 })
 
 const handleStatusChange = (status) => {
-  conversationStore.setListStatus(status.label)
+  conversationStore.setListStatus(status.name)
 }
 
 const handleSortChange = (order) => {

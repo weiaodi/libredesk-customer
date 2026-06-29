@@ -1,179 +1,247 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>星视视频 - 你的精彩视界</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #0f0f1a;
-      color: #e2e2e8;
-      min-height: 100vh;
-    }
-    .navbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 32px;
-      background: #1a1a2e;
-      border-bottom: 1px solid #2a2a3e;
-    }
-    .logo {
-      font-size: 22px;
-      font-weight: 700;
-      color: #7c3aed;
-      letter-spacing: -0.5px;
-    }
-    .nav-links { display: flex; gap: 24px; }
-    .nav-links a {
-      color: #a0a0b8;
-      text-decoration: none;
-      font-size: 14px;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: #fff; }
-    .search-bar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: #252538;
-      border-radius: 8px;
-      padding: 8px 16px;
-      width: 320px;
-    }
-    .search-bar input {
-      background: none;
-      border: none;
-      color: #e2e2e8;
-      outline: none;
-      flex: 1;
-      font-size: 14px;
-    }
-    .search-bar input::placeholder { color: #666; }
-    .hero {
-      padding: 80px 32px;
-      text-align: center;
-      background: linear-gradient(180deg, #1a1a2e 0%, #0f0f1a 100%);
-    }
-    .hero h1 {
-      font-size: 42px;
-      font-weight: 800;
-      margin-bottom: 16px;
-      background: linear-gradient(135deg, #7c3aed, #a78bfa);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .hero p {
-      font-size: 18px;
-      color: #8888a0;
-      margin-bottom: 32px;
-    }
-    .content-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 20px;
-      padding: 0 32px 60px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .card {
-      background: #1a1a2e;
-      border-radius: 12px;
-      overflow: hidden;
-      transition: transform 0.2s;
-      cursor: pointer;
-    }
-    .card:hover { transform: translateY(-4px); }
-    .card-thumb {
-      width: 100%;
-      height: 140px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      color: #888;
-    }
-    .card-info { padding: 12px; }
-    .card-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
-    .card-meta { font-size: 12px; color: #666; }
-    .help-section {
-      background: #1a1a2e;
-      border-radius: 16px;
-      padding: 40px;
-      margin: 0 32px 60px;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-      text-align: center;
-    }
-    .help-section h2 { font-size: 22px; margin-bottom: 16px; }
-    .help-section p { color: #8888a0; font-size: 15px; margin-bottom: 20px; }
-    .help-items {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .help-item {
-      background: #252538;
-      padding: 12px 20px;
-      border-radius: 8px;
-      font-size: 14px;
-      color: #c0c0d0;
-    }
-  </style>
-</head>
-<body>
-  <nav class="navbar">
-    <div class="logo">&#9733; 星视视频</div>
-    <div class="nav-links">
-      <a href="#">首页</a>
-      <a href="#">电影</a>
-      <a href="#">剧集</a>
-      <a href="#">综艺</a>
-      <a href="#">VIP会员</a>
-    </div>
-    <div class="search-bar">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-      <input placeholder="搜索视频、演员..." />
-    </div>
-  </nav>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>星视视频 - 你的精彩视界</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                background: #0f0f1a;
+                color: #e2e2e8;
+                min-height: 100vh;
+            }
+            .navbar {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 16px 32px;
+                background: #1a1a2e;
+                border-bottom: 1px solid #2a2a3e;
+            }
+            .logo {
+                font-size: 22px;
+                font-weight: 700;
+                color: #7c3aed;
+                letter-spacing: -0.5px;
+            }
+            .nav-links {
+                display: flex;
+                gap: 24px;
+            }
+            .nav-links a {
+                color: #a0a0b8;
+                text-decoration: none;
+                font-size: 14px;
+                transition: color 0.2s;
+            }
+            .nav-links a:hover {
+                color: #fff;
+            }
+            .search-bar {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                background: #252538;
+                border-radius: 8px;
+                padding: 8px 16px;
+                width: 320px;
+            }
+            .search-bar input {
+                background: none;
+                border: none;
+                color: #e2e2e8;
+                outline: none;
+                flex: 1;
+                font-size: 14px;
+            }
+            .search-bar input::placeholder {
+                color: #666;
+            }
+            .hero {
+                padding: 80px 32px;
+                text-align: center;
+                background: linear-gradient(180deg, #1a1a2e 0%, #0f0f1a 100%);
+            }
+            .hero h1 {
+                font-size: 42px;
+                font-weight: 800;
+                margin-bottom: 16px;
+                background: linear-gradient(135deg, #7c3aed, #a78bfa);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .hero p {
+                font-size: 18px;
+                color: #8888a0;
+                margin-bottom: 32px;
+            }
+            .content-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 20px;
+                padding: 0 32px 60px;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+            .card {
+                background: #1a1a2e;
+                border-radius: 12px;
+                overflow: hidden;
+                transition: transform 0.2s;
+                cursor: pointer;
+            }
+            .card:hover {
+                transform: translateY(-4px);
+            }
+            .card-thumb {
+                width: 100%;
+                height: 140px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 14px;
+                color: #888;
+            }
+            .card-info {
+                padding: 12px;
+            }
+            .card-title {
+                font-size: 14px;
+                font-weight: 600;
+                margin-bottom: 4px;
+            }
+            .card-meta {
+                font-size: 12px;
+                color: #666;
+            }
+            .help-section {
+                background: #1a1a2e;
+                border-radius: 16px;
+                padding: 40px;
+                margin: 0 32px 60px;
+                max-width: 700px;
+                margin-left: auto;
+                margin-right: auto;
+                text-align: center;
+            }
+            .help-section h2 {
+                font-size: 22px;
+                margin-bottom: 16px;
+            }
+            .help-section p {
+                color: #8888a0;
+                font-size: 15px;
+                margin-bottom: 20px;
+            }
+            .help-items {
+                display: flex;
+                gap: 12px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .help-item {
+                background: #252538;
+                padding: 12px 20px;
+                border-radius: 8px;
+                font-size: 14px;
+                color: #c0c0d0;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="logo">&#9733; 星视视频</div>
+            <div class="nav-links">
+                <a href="#">首页</a>
+                <a href="#">电影</a>
+                <a href="#">剧集</a>
+                <a href="#">综艺</a>
+                <a href="#">VIP会员</a>
+            </div>
+            <div class="search-bar">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2">
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="m21 21-4.3-4.3" />
+                </svg>
+                <input placeholder="搜索视频、演员..." />
+            </div>
+        </nav>
 
-  <div class="hero">
-    <h1>你的精彩视界</h1>
-    <p>千万视频，随时畅享。4K超清、杜比音效，沉浸体验。</p>
-  </div>
+        <div class="hero">
+            <h1>你的精彩视界</h1>
+            <p>千万视频，随时畅享。4K超清、杜比音效，沉浸体验。</p>
+        </div>
 
-  <div class="content-grid">
-    <div class="card"><div class="card-thumb" style="background:#2d1b4e;">&#9654; 热播电影</div><div class="card-info"><div class="card-title">流浪星球3</div><div class="card-meta">8.9分 &middot; 科幻</div></div></div>
-    <div class="card"><div class="card-thumb" style="background:#1b3a2d;">&#9654; 热播剧集</div><div class="card-info"><div class="card-title">长安十二时辰</div><div class="card-meta">9.1分 &middot; 悬疑</div></div></div>
-    <div class="card"><div class="card-thumb" style="background:#3a1b1b;">&#9654; 热播综艺</div><div class="card-info"><div class="card-title">歌手2026</div><div class="card-meta">8.5分 &middot; 音乐</div></div></div>
-    <div class="card"><div class="card-thumb" style="background:#1b2a3a;">&#9654; 热播动漫</div><div class="card-info"><div class="card-title">星海战纪</div><div class="card-meta">9.3分 &middot; 科幻</div></div></div>
-    <div class="card"><div class="card-thumb" style="background:#2a1b3a;">&#9654; 独家纪录片</div><div class="card-info"><div class="card-title">地球脉动IV</div><div class="card-meta">9.8分 &middot; 纪录</div></div></div>
-    <div class="card"><div class="card-thumb" style="background:#1b3a3a;">&#9654; VIP专享</div><div class="card-info"><div class="card-title">绝命护卫</div><div class="card-meta">8.7分 &middot; 动作</div></div></div>
-  </div>
+        <div class="content-grid">
+            <div class="card">
+                <div class="card-thumb" style="background: #2d1b4e">&#9654; 热播电影</div>
+                <div class="card-info">
+                    <div class="card-title">流浪星球3</div>
+                    <div class="card-meta">8.9分 &middot; 科幻</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-thumb" style="background: #1b3a2d">&#9654; 热播剧集</div>
+                <div class="card-info">
+                    <div class="card-title">长安十二时辰</div>
+                    <div class="card-meta">9.1分 &middot; 悬疑</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-thumb" style="background: #3a1b1b">&#9654; 热播综艺</div>
+                <div class="card-info">
+                    <div class="card-title">歌手2026</div>
+                    <div class="card-meta">8.5分 &middot; 音乐</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-thumb" style="background: #1b2a3a">&#9654; 热播动漫</div>
+                <div class="card-info">
+                    <div class="card-title">星海战纪</div>
+                    <div class="card-meta">9.3分 &middot; 科幻</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-thumb" style="background: #2a1b3a">&#9654; 独家纪录片</div>
+                <div class="card-info">
+                    <div class="card-title">地球脉动IV</div>
+                    <div class="card-meta">9.8分 &middot; 纪录</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-thumb" style="background: #1b3a3a">&#9654; VIP专享</div>
+                <div class="card-info">
+                    <div class="card-title">绝命护卫</div>
+                    <div class="card-meta">8.7分 &middot; 动作</div>
+                </div>
+            </div>
+        </div>
 
-  <div class="help-section">
-    <h2>需要帮助？</h2>
-    <p>遇到播放、会员、充值、退款等问题？点击右下角聊天按钮，客服2分钟内回复！</p>
-    <div class="help-items">
-      <div class="help-item">VIP会员问题</div>
-      <div class="help-item">播放卡顿</div>
-      <div class="help-item">充值退款</div>
-      <div class="help-item">账号安全</div>
-      <div class="help-item">投屏故障</div>
-    </div>
-  </div>
+        <div class="help-section">
+            <h2>需要帮助？</h2>
+            <p>遇到播放、会员、充值、退款等问题？点击右下角聊天按钮，客服2分钟内回复！</p>
+            <div class="help-items">
+                <div class="help-item">VIP会员问题</div>
+                <div class="help-item">播放卡顿</div>
+                <div class="help-item">充值退款</div>
+                <div class="help-item">账号安全</div>
+                <div class="help-item">投屏故障</div>
+            </div>
+        </div>
 
-  <!-- LibreDesk Widget -->
-  <script>
-    window.LibredeskSettings = {
-      baseURL: 'http://localhost:9000',
-      inboxID: '72b5c9e2-e520-498b-9562-b3eb6a63045e'
-    };
-  </script>
-  <script async src="http://localhost:9000/widget.js"></script>
-</body>
+        <!-- LibreDesk Widget -->
+        <script>
+            window.LibredeskSettings = {
+                baseURL: "",
+                inboxID: "72b5c9e2-e520-498b-9562-b3eb6a63045e",
+            }
+        </script>
+        <script async src="/widget.js"></script>
+    </body>
 </html>

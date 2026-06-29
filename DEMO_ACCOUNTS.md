@@ -3,7 +3,7 @@
 ## 管理后台地址
 
 - 管理后台: http://localhost:8000
-- 视频平台测试页面: http://localhost:3333/starvideo.html (需先启动 `python3 -m http.server 3333`)
+- 视频平台测试页面: http://localhost:3333/starvideo.html (需先启动 `make run-starvideo`)
 
 ---
 

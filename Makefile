@@ -69,6 +69,13 @@ run-frontend-main:
 	@echo "→ Running main frontend app..."
 	@export VITE_APP_VERSION="${VERSION}" && cd ${FRONTEND_DIR} && pnpm dev:main
 
+# Run the starvideo demo page with Vite dev server (proxies API to backend).
+# Requires Node.js 20+ (nvm use 20).
+.PHONY: run-starvideo
+run-starvideo:
+	@echo "→ Running starvideo demo page..."
+	@export NVM_DIR="${HOME}/.nvm" && . "${NVM_DIR}/nvm.sh" && nvm use 20 && ./frontend/node_modules/.bin/vite --config vite.config.starvideo.js
+
 # Run the widget frontend app in development mode.
 .PHONY: run-frontend-widget
 run-frontend-widget:

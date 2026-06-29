@@ -62,9 +62,9 @@
           <DropdownMenuItem
             v-for="status in conversationStore.statusOptionsNoSnooze"
             :key="status.value"
-            @click="handleSendAndSetStatus(status.label)"
+            @click="handleSendAndSetStatus(status.name)"
           >
-            {{ status.label }}
+            {{ status.i18nKey ? $t(status.i18nKey) : status.label }}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

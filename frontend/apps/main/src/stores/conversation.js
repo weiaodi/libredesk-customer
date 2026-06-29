@@ -33,16 +33,58 @@ export const useConversationStore = defineStore('conversation', () => {
 
   const selectedUUIDs = ref(new Set())
 
+  // Default status name to i18n key mapping
+  const defaultStatusI18nKeys = {
+    'Open': 'globals.terms.open',
+    'Snoozed': 'globals.terms.snoozed',
+    'Resolved': 'globals.terms.resolved',
+    'Closed': 'globals.terms.closed',
+  }
+
+  // Default priority name to i18n key mapping
+  const defaultPriorityI18nKeys = {
+    'Low': 'globals.terms.low',
+    'Medium': 'globals.terms.medium',
+    'High': 'globals.terms.high',
+    'Urgent': 'globals.terms.urgent',
+  }
+
+  const translateName = (name, mapping) => {
+    const i18n = getI18n()
+    const key = mapping[name]
+    if (key && i18n?.global) {
+      const translated = i18n.global.t(key)
+      if (translated !== key) {
+        return translated
+      }
+    }
+    return name
+  }
+
+  const getI18nKey = (name, mapping) => mapping[name] || null
+
   const priorityOptions = computed(() => {
-    return priorities.value.map(p => ({ label: p.name, value: p.id }))
+    return priorities.value.map(p => ({
+      label: translateName(p.name, defaultPriorityI18nKeys),
+      i18nKey: getI18nKey(p.name, defaultPriorityI18nKeys),
+      value: p.id,
+      name: p.name
+    }))
   })
   const statusOptions = computed(() => {
-    return statuses.value.map(s => ({ label: s.name, value: s.id }))
+    return statuses.value.map(s => ({
+      label: translateName(s.name, defaultStatusI18nKeys),
+      i18nKey: getI18nKey(s.name, defaultStatusI18nKeys),
+      value: s.id,
+      name: s.name
+    }))
   })
   const statusOptionsNoSnooze = computed(() =>
     statuses.value.filter(s => s.name !== CONVERSATION_DEFAULT_STATUSES.SNOOZED).map(s => ({
-      label: s.name,
-      value: s.id
+      label: translateName(s.name, defaultStatusI18nKeys),
+      i18nKey: getI18nKey(s.name, defaultStatusI18nKeys),
+      value: s.id,
+      name: s.name
     }))
   )
 
@@ -206,7 +248,13 @@ export const useConversationStore = defineStore('conversation', () => {
   }
 
   const getListStatus = computed(() => {
-    return conversations.status
+    const status = conversations.status
+    if (!status) return ''
+    return translateName(status, defaultStatusI18nKeys)
+  })
+
+  const statusI18nKey = computed(() => {
+    return getI18nKey(conversations.status, defaultStatusI18nKeys)
   })
 
   function setListSortField (field) {
@@ -344,6 +392,26 @@ export const useConversationStore = defineStore('conversation', () => {
 
   const current = computed(() => {
     return conversation.data || {}
+  })
+
+  const currentStatusI18nKey = computed(() => {
+    return getI18nKey(current.value?.status, defaultStatusI18nKeys)
+  })
+
+  const currentPriorityI18nKey = computed(() => {
+    return getI18nKey(current.value?.priority, defaultPriorityI18nKeys)
+  })
+
+  const currentStatusName = computed(() => {
+    const status = current.value?.status
+    if (!status) return ''
+    return translateName(status, defaultStatusI18nKeys)
+  })
+
+  const currentPriorityName = computed(() => {
+    const priority = current.value?.priority
+    if (!priority) return ''
+    return translateName(priority, defaultPriorityI18nKeys)
   })
 
   const isConversationOpen = computed(() => {
@@ -1103,6 +1171,10 @@ export const useConversationStore = defineStore('conversation', () => {
     currentConversationHasMoreMessages,
     isConversationOpen,
     current,
+    currentStatusName,
+    currentStatusI18nKey,
+    currentPriorityName,
+    currentPriorityI18nKey,
     currentContactName,
     currentTo,
     currentBCC,
@@ -1145,6 +1217,7 @@ export const useConversationStore = defineStore('conversation', () => {
     removeAssignee,
     getListSortField,
     getListStatus,
+    statusI18nKey,
     statuses,
     priorities,
     priorityOptions,

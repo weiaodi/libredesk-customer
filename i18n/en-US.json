@@ -1109,5 +1109,9 @@
   "webhook.sentSuccessfully": "Webhook sent successfully",
   "widget.conversationClosed": "This conversation has been closed",
   "widget.ipBlocked": "Access denied",
-  "widget.prechatForm.startChat": "Start chat"
+  "widget.prechatForm.startChat": "Start chat",
+  "globals.terms.low": "Low | Low",
+  "globals.terms.medium": "Medium | Medium",
+  "globals.terms.high": "High | High",
+  "globals.terms.urgent": "Urgent | Urgent"
 }

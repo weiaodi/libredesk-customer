@@ -9,21 +9,15 @@
               <Dialog v-model:open="dialogOpen">
                 <DialogTrigger as-child @click="newCustomAttribute">
                   <Button class="ml-auto">
-                    {{
-                      $t('customAttribute.new')
-                    }}
+                    {{ $t('customAttribute.new') }}
                   </Button>
                 </DialogTrigger>
                 <DialogContent class="sm:max-w-[600px]">
                   <DialogHeader>
                     <DialogTitle>
-                      {{
-                        isEditing
-                          ? $t('customAttribute.edit')
-                          : $t('customAttribute.new')
-                      }}
+                      {{ isEditing ? $t('customAttribute.edit') : $t('customAttribute.new') }}
                     </DialogTitle>
-                    <DialogDescription/>
+                    <DialogDescription />
                   </DialogHeader>
                   <CustomAttributesForm @submit.prevent="onSubmit" :form="form">
                     <template #footer>
@@ -51,10 +45,18 @@
                 </TabsTrigger>
               </TabsList>
               <TabsContent value="contact">
-                <DataTable :columns="createColumns(t, { onEdit: editCustomAttribute })" :data="customAttributes" :loading="isLoading" />
+                <DataTable
+                  :columns="createColumns(t, { onEdit: editCustomAttribute })"
+                  :data="customAttributes"
+                  :loading="isLoading"
+                />
               </TabsContent>
               <TabsContent value="conversation">
-                <DataTable :columns="createColumns(t, { onEdit: editCustomAttribute })" :data="customAttributes" :loading="isLoading" />
+                <DataTable
+                  :columns="createColumns(t, { onEdit: editCustomAttribute })"
+                  :data="customAttributes"
+                  :loading="isLoading"
+                />
               </TabsContent>
             </Tabs>
           </div>
