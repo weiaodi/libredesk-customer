@@ -1,6 +1,6 @@
 <template>
-  <div class="overflow-y-auto h-screen">
-    <div class="p-6 sm:p-8 min-h-full flex flex-col">
+  <div class="overflow-y-auto h-full">
+    <div class="p-3 sm:p-6 md:p-8 min-h-full flex flex-col">
       <div
         class="flex flex-col items-center justify-center flex-grow"
         v-if="$route.name === 'admin'"

@@ -1,9 +1,7 @@
 <template>
-  <SmallScreenOverlay v-if="showSmallScreenOverlay" @dismiss="dismissSmallScreen" />
-
-  <div class="flex w-full h-screen text-foreground bg-canvas p-1.5">
-    <!-- Icon sidebar always visible -->
-    <SidebarProvider style="--sidebar-width: 3rem" class="w-auto z-50">
+  <div class="flex w-full h-screen text-foreground bg-canvas" :class="isMobile ? 'flex-col' : 'p-1.5'">
+    <!-- Desktop: Icon sidebar always visible -->
+    <SidebarProvider v-if="!isMobile" style="--sidebar-width: 3rem" class="w-auto z-50">
       <ShadcnSidebar collapsible="none" class="border rounded-lg overflow-hidden">
         <SidebarContent>
           <SidebarGroup>
@@ -94,7 +92,7 @@
     </SidebarProvider>
 
     <!-- Main sidebar that collapses -->
-    <div class="flex-1 min-w-0">
+    <div class="flex-1 min-w-0" :class="isMobile ? 'min-h-0' : ''">
       <Sidebar
         :userTeams="userStore.teams"
         :userViews="userViews"
@@ -104,7 +102,7 @@
         @delete-view="deleteView"
         @create-conversation="() => (openCreateConversationDialog = true)"
       >
-        <div class="flex flex-col h-full rounded-lg overflow-hidden bg-background">
+        <div class="flex flex-col h-full overflow-hidden" :class="isMobile ? 'rounded-none' : 'rounded-lg bg-background'">
           <!-- Show admin banner only in admin routes -->
           <AdminBanner v-if="route.path.startsWith('/admin')" />
 
@@ -117,6 +115,66 @@
         <ViewForm v-model:openDialog="openCreateViewForm" v-model:view="view" />
       </Sidebar>
     </div>
+
+    <!-- Mobile: Bottom tab bar -->
+    <nav
+      v-if="isMobile"
+      class="flex items-center justify-around h-14 border-t bg-background shrink-0 safe-area-bottom"
+    >
+      <router-link
+        :to="lastInboxPath || { name: 'inboxes' }"
+        class="flex flex-col items-center justify-center gap-0.5 py-1 px-3 text-muted-foreground transition-colors"
+        :class="{ 'text-foreground': route.path.startsWith('/inboxes') }"
+      >
+        <Inbox class="w-5 h-5" />
+        <span class="text-[10px]">{{ t('globals.terms.inbox', 2) }}</span>
+      </router-link>
+      <router-link
+        v-if="userStore.can('contacts:read_all')"
+        :to="{ name: 'contacts' }"
+        class="flex flex-col items-center justify-center gap-0.5 py-1 px-3 text-muted-foreground transition-colors"
+        :class="{ 'text-foreground': route.path.startsWith('/contacts') }"
+      >
+        <BookUser class="w-5 h-5" />
+        <span class="text-[10px]">{{ t('globals.terms.contact', 2) }}</span>
+      </router-link>
+      <router-link
+        v-if="userStore.hasReportTabPermissions"
+        :to="{ name: 'reports' }"
+        class="flex flex-col items-center justify-center gap-0.5 py-1 px-3 text-muted-foreground transition-colors"
+        :class="{ 'text-foreground': route.path.startsWith('/reports') }"
+      >
+        <FileLineChart class="w-5 h-5" />
+        <span class="text-[10px]">{{ t('globals.terms.report', 2) }}</span>
+      </router-link>
+      <router-link
+        v-if="userStore.hasAdminTabPermissions"
+        :to="{ name: userStore.can('general_settings:manage') ? 'general' : 'admin' }"
+        class="flex flex-col items-center justify-center gap-0.5 py-1 px-3 text-muted-foreground transition-colors"
+        :class="{ 'text-foreground': route.path.startsWith('/admin') }"
+      >
+        <Shield class="w-5 h-5" />
+        <span class="text-[10px]">{{ t('globals.terms.admin') }}</span>
+      </router-link>
+      <!-- Notifications tab for mobile -->
+      <Popover v-model:open="mobileNotifOpen">
+        <PopoverTrigger as-child>
+          <button class="flex flex-col items-center justify-center gap-0.5 py-1 px-3 text-muted-foreground transition-colors relative">
+            <Bell class="w-5 h-5" />
+            <span class="text-[10px]">{{ t('globals.terms.notification', 2) }}</span>
+            <span
+              v-if="notificationStore.unreadCount > 0"
+              class="absolute top-0.5 right-0.5 inline-flex size-3.5 items-center justify-center rounded-full bg-destructive text-[9px] font-medium text-destructive-foreground"
+            >
+              {{ notificationStore.unreadCount > 99 ? '99' : notificationStore.unreadCount }}
+            </span>
+          </button>
+        </PopoverTrigger>
+        <PopoverContent side="top" :side-offset="8" align="center" class="w-[calc(100vw-2rem)] sm:w-96 p-0">
+          <NotificationPanel @close="mobileNotifOpen = false" />
+        </PopoverContent>
+      </Popover>
+    </nav>
   </div>
 
   <!-- Command box -->
@@ -148,6 +206,8 @@ import { useCustomAttributeStore } from './stores/customAttributes'
 import { useIdleDetection } from './composables/useIdleDetection'
 import { useNotificationStore } from './stores/notification'
 import { initAudioContext } from '@shared-ui/composables/useNotificationSound'
+import { useIsMobile } from './composables/useIsMobile'
+import { Popover, PopoverContent, PopoverTrigger } from '@shared-ui/components/ui/popover'
 import PageHeader from './components/layout/PageHeader.vue'
 import ViewForm from '@/features/view/ViewForm.vue'
 import AdminBanner from '@/components/banner/AdminBanner.vue'
@@ -155,8 +215,7 @@ import { toast as sooner } from 'vue-sonner'
 import Sidebar from '@main/components/sidebar/Sidebar.vue'
 import Command from '@/features/command/CommandBox.vue'
 import CreateConversation from '@/features/conversation/CreateConversation.vue'
-import { Inbox, Shield, FileLineChart, BookUser } from 'lucide-vue-next'
-import SmallScreenOverlay from '@/components/SmallScreenOverlay.vue'
+import { Inbox, Shield, FileLineChart, BookUser, Bell } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import {
@@ -173,17 +232,13 @@ import {
 import { Tooltip, TooltipContent, TooltipTrigger } from '@shared-ui/components/ui/tooltip'
 import SidebarNavUser from '@main/components/sidebar/SidebarNavUser.vue'
 import NotificationBell from '@main/components/sidebar/NotificationBell.vue'
+import NotificationPanel from '@main/components/sidebar/NotificationPanel.vue'
 import api from '@main/api'
 
 const route = useRoute()
 const emitter = useEmitter()
-
-// Small screen overlay - shown once per session for screens < 768px.
-const showSmallScreenOverlay = ref(window.screen.width < 768 && !sessionStorage.getItem('smallScreenDismissed'))
-function dismissSmallScreen() {
-  sessionStorage.setItem('smallScreenDismissed', '1')
-  showSmallScreenOverlay.value = false
-}
+const isMobile = useIsMobile()
+const mobileNotifOpen = ref(false)
 
 // Remember last inbox path so navigating back from admin/contacts/reports restores it
 const lastInboxPath = useStorage('lastInboxPath', '')
@@ -333,5 +388,10 @@ const refreshViews = async (data) => {
 :deep(.group\/sidebar-wrapper) {
   min-height: auto !important;
   height: 100%;
+}
+
+/* Safe area for mobile devices with home indicator (iPhone X+) */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 </style>

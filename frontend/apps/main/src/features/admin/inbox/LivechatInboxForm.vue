@@ -81,11 +81,13 @@
               <FormControl>
                 <Input type="url" placeholder="https://example.com" v-bind="componentField" />
               </FormControl>
-              <FormDescription>{{ $t('admin.inbox.livechat.websiteUrl.description') }}</FormDescription>
+              <FormDescription>{{
+                $t('admin.inbox.livechat.websiteUrl.description')
+              }}</FormDescription>
             </FormItem>
           </FormField>
 
-          <div class="grid grid-cols-2 gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <!-- Language -->
             <FormField v-slot="{ componentField }" name="config.language">
               <FormItem>
@@ -96,8 +98,14 @@
                       <SelectValue :placeholder="$t('admin.general.language.placeholder')" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="auto">{{ $t('admin.inbox.livechat.language.auto') }}</SelectItem>
-                      <SelectItem v-for="lang in availableLanguages" :key="lang.code" :value="lang.code">
+                      <SelectItem value="auto">{{
+                        $t('admin.inbox.livechat.language.auto')
+                      }}</SelectItem>
+                      <SelectItem
+                        v-for="lang in availableLanguages"
+                        :key="lang.code"
+                        :value="lang.code"
+                      >
                         {{ lang.name }}
                       </SelectItem>
                     </SelectContent>
@@ -107,7 +115,11 @@
             </FormField>
 
             <!-- Fallback Language (shown only when auto-detect is selected) -->
-            <FormField v-if="form.values.config?.language === 'auto'" v-slot="{ componentField }" name="config.fallback_language">
+            <FormField
+              v-if="form.values.config?.language === 'auto'"
+              v-slot="{ componentField }"
+              name="config.fallback_language"
+            >
               <FormItem>
                 <FormLabel>{{ $t('admin.inbox.livechat.fallbackLanguage') }}</FormLabel>
                 <FormControl>
@@ -116,18 +128,24 @@
                       <SelectValue :placeholder="$t('admin.general.language.placeholder')" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem v-for="lang in availableLanguages" :key="lang.code" :value="lang.code">
+                      <SelectItem
+                        v-for="lang in availableLanguages"
+                        :key="lang.code"
+                        :value="lang.code"
+                      >
                         {{ lang.name }}
                       </SelectItem>
                     </SelectContent>
                   </Select>
                 </FormControl>
-                <FormDescription>{{ $t('admin.inbox.livechat.fallbackLanguage.description') }}</FormDescription>
+                <FormDescription>{{
+                  $t('admin.inbox.livechat.fallbackLanguage.description')
+                }}</FormDescription>
               </FormItem>
             </FormField>
           </div>
 
-          <div class="grid grid-cols-2 gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <!-- Email Fallback Inbox -->
             <FormField v-slot="{ componentField }" name="linked_email_inbox_id">
               <FormItem>
@@ -135,9 +153,7 @@
                 <FormControl>
                   <Select v-bind="componentField">
                     <SelectTrigger>
-                      <SelectValue
-                        :placeholder="$t('placeholders.selectInbox')"
-                      />
+                      <SelectValue :placeholder="$t('placeholders.selectInbox')" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem :value="0">{{ $t('globals.terms.none') }}</SelectItem>
@@ -154,41 +170,61 @@
             </FormField>
 
             <template v-if="form.values.linked_email_inbox_id">
-            <FormField v-slot="{ componentField }" name="config.continuity.offline_threshold">
-              <FormItem>
-                <FormLabel>{{ $t('admin.inbox.livechat.continuity.offlineThreshold') }}</FormLabel>
-                <FormControl>
-                  <Input type="text" placeholder="10m" v-bind="componentField" />
-                </FormControl>
-                <FormDescription>{{ $t('admin.inbox.livechat.continuity.offlineThreshold.description') }}</FormDescription>
-                <FormMessage />
-              </FormItem>
-            </FormField>
+              <FormField v-slot="{ componentField }" name="config.continuity.offline_threshold">
+                <FormItem>
+                  <FormLabel>{{
+                    $t('admin.inbox.livechat.continuity.offlineThreshold')
+                  }}</FormLabel>
+                  <FormControl>
+                    <Input type="text" placeholder="10m" v-bind="componentField" />
+                  </FormControl>
+                  <FormDescription>{{
+                    $t('admin.inbox.livechat.continuity.offlineThreshold.description')
+                  }}</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              </FormField>
 
-            <FormField v-slot="{ componentField }" name="config.continuity.max_messages_per_email">
-              <FormItem>
-                <FormLabel>{{ $t('admin.inbox.livechat.continuity.maxMessagesPerEmail') }}</FormLabel>
-                <FormControl>
-                  <Input type="number" :min="1" :max="100" placeholder="10" v-bind="componentField" />
-                </FormControl>
-                <FormDescription>{{ $t('admin.inbox.livechat.continuity.maxMessagesPerEmail.description') }}</FormDescription>
-                <FormMessage />
-              </FormItem>
-            </FormField>
+              <FormField
+                v-slot="{ componentField }"
+                name="config.continuity.max_messages_per_email"
+              >
+                <FormItem>
+                  <FormLabel>{{
+                    $t('admin.inbox.livechat.continuity.maxMessagesPerEmail')
+                  }}</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="number"
+                      :min="1"
+                      :max="100"
+                      placeholder="10"
+                      v-bind="componentField"
+                    />
+                  </FormControl>
+                  <FormDescription>{{
+                    $t('admin.inbox.livechat.continuity.maxMessagesPerEmail.description')
+                  }}</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              </FormField>
 
-            <FormField v-slot="{ componentField }" name="config.continuity.min_email_interval">
-              <FormItem>
-                <FormLabel>{{ $t('admin.inbox.livechat.continuity.minEmailInterval') }}</FormLabel>
-                <FormControl>
-                  <Input type="text" placeholder="15m" v-bind="componentField" />
-                </FormControl>
-                <FormDescription>{{ $t('admin.inbox.livechat.continuity.minEmailInterval.description') }}</FormDescription>
-                <FormMessage />
-              </FormItem>
-            </FormField>
+              <FormField v-slot="{ componentField }" name="config.continuity.min_email_interval">
+                <FormItem>
+                  <FormLabel>{{
+                    $t('admin.inbox.livechat.continuity.minEmailInterval')
+                  }}</FormLabel>
+                  <FormControl>
+                    <Input type="text" placeholder="15m" v-bind="componentField" />
+                  </FormControl>
+                  <FormDescription>{{
+                    $t('admin.inbox.livechat.continuity.minEmailInterval.description')
+                  }}</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              </FormField>
             </template>
           </div>
-
         </div>
 
         <!-- Appearance Tab -->
@@ -234,8 +270,10 @@
 
           <!-- Colors -->
           <div class="space-y-4">
-            <h4 class="text-base font-semibold text-foreground">{{ $t('admin.inbox.livechat.colors') }}</h4>
-            <div class="grid grid-cols-2 gap-4">
+            <h4 class="text-base font-semibold text-foreground">
+              {{ $t('admin.inbox.livechat.colors') }}
+            </h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <FormField v-slot="{ componentField }" name="config.colors.primary">
                 <FormItem>
                   <FormLabel>{{ $t('globals.terms.primaryColor', 1) }}</FormLabel>
@@ -250,7 +288,9 @@
 
           <!-- Home Screen -->
           <div class="space-y-4">
-            <h4 class="text-base font-semibold text-foreground">{{ $t('globals.terms.homeScreen') }}</h4>
+            <h4 class="text-base font-semibold text-foreground">
+              {{ $t('globals.terms.homeScreen') }}
+            </h4>
 
             <!-- Header Text Color -->
             <FormField v-slot="{ componentField }" name="config.home_screen.header_text_color">
@@ -268,7 +308,9 @@
                     </div>
                   </RadioGroup>
                 </FormControl>
-                <FormDescription>{{ $t('admin.inbox.livechat.homeScreen.headerTextColor.description') }}</FormDescription>
+                <FormDescription>{{
+                  $t('admin.inbox.livechat.homeScreen.headerTextColor.description')
+                }}</FormDescription>
               </FormItem>
             </FormField>
 
@@ -296,7 +338,10 @@
             </FormField>
 
             <!-- Solid color picker -->
-            <div v-if="form.values.config?.home_screen?.background?.type === 'solid'" class="grid grid-cols-2 gap-4">
+            <div
+              v-if="form.values.config?.home_screen?.background?.type === 'solid'"
+              class="grid grid-cols-1 sm:grid-cols-2 gap-4"
+            >
               <FormField v-slot="{ componentField }" name="config.home_screen.background.color">
                 <FormItem>
                   <FormLabel>{{ $t('globals.messages.backgroundColor') }}</FormLabel>
@@ -309,8 +354,14 @@
             </div>
 
             <!-- Gradient color pickers -->
-            <div v-if="form.values.config?.home_screen?.background?.type === 'gradient'" class="grid grid-cols-2 gap-4">
-              <FormField v-slot="{ componentField }" name="config.home_screen.background.gradient_start">
+            <div
+              v-if="form.values.config?.home_screen?.background?.type === 'gradient'"
+              class="grid grid-cols-1 sm:grid-cols-2 gap-4"
+            >
+              <FormField
+                v-slot="{ componentField }"
+                name="config.home_screen.background.gradient_start"
+              >
                 <FormItem>
                   <FormLabel>{{ $t('globals.messages.gradientStart') }}</FormLabel>
                   <FormControl>
@@ -319,7 +370,10 @@
                   <FormMessage />
                 </FormItem>
               </FormField>
-              <FormField v-slot="{ componentField }" name="config.home_screen.background.gradient_end">
+              <FormField
+                v-slot="{ componentField }"
+                name="config.home_screen.background.gradient_end"
+              >
                 <FormItem>
                   <FormLabel>{{ $t('globals.messages.gradientEnd') }}</FormLabel>
                   <FormControl>
@@ -331,18 +385,29 @@
             </div>
 
             <!-- Image URL -->
-            <FormField v-if="form.values.config?.home_screen?.background?.type === 'image'" v-slot="{ componentField }" name="config.home_screen.background.image_url">
+            <FormField
+              v-if="form.values.config?.home_screen?.background?.type === 'image'"
+              v-slot="{ componentField }"
+              name="config.home_screen.background.image_url"
+            >
               <FormItem>
                 <FormLabel>{{ $t('globals.messages.backgroundImageUrl') }}</FormLabel>
                 <FormControl>
-                  <Input type="url" placeholder="https://example.com/background.jpg" v-bind="componentField" />
+                  <Input
+                    type="url"
+                    placeholder="https://example.com/background.jpg"
+                    v-bind="componentField"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             </FormField>
 
             <!-- Fade Background -->
-            <FormField v-slot="{ componentField, handleChange }" name="config.home_screen.fade_background">
+            <FormField
+              v-slot="{ componentField, handleChange }"
+              name="config.home_screen.fade_background"
+            >
               <FormItem>
                 <SwitchField
                   :title="$t('admin.inbox.livechat.homeScreen.fadeBackground')"
@@ -356,12 +421,21 @@
 
           <!-- Home Screen Apps -->
           <div class="space-y-4">
-            <h4 class="text-base font-semibold text-foreground">{{ $t('globals.terms.homeScreenApp', 2) }}</h4>
+            <h4 class="text-base font-semibold text-foreground">
+              {{ $t('globals.terms.homeScreenApp', 2) }}
+            </h4>
 
             <FormField name="config.home_apps">
               <FormItem>
                 <div class="space-y-3">
-                  <Draggable v-model="homeApps" item-key="index" :animation="200" handle=".drag-handle" class="space-y-3" @change="updateHomeApps">
+                  <Draggable
+                    v-model="homeApps"
+                    item-key="index"
+                    :animation="200"
+                    handle=".drag-handle"
+                    class="space-y-3"
+                    @change="updateHomeApps"
+                  >
                     <template #item="{ element: item, index }">
                       <div class="flex items-start gap-2 p-3 border rounded">
                         <div class="drag-handle cursor-move text-muted-foreground pt-2">
@@ -369,24 +443,60 @@
                         </div>
                         <div class="flex-1">
                           <div class="text-xs text-muted-foreground mb-2">
-                            {{ item.type === 'announcement' ? $t('globals.terms.announcement') : $t('admin.inbox.livechat.externalLinks') }}
+                            {{
+                              item.type === 'announcement'
+                                ? $t('globals.terms.announcement')
+                                : $t('admin.inbox.livechat.externalLinks')
+                            }}
                           </div>
                           <!-- Announcement fields -->
                           <div v-if="item.type === 'announcement'" class="flex flex-col gap-2">
-                            <Input v-model="item.title" :placeholder="$t('globals.terms.title')" @change="updateHomeApps" />
-                            <Textarea v-model="item.description" :placeholder="$t('globals.terms.description')" rows="6" @change="updateHomeApps" />
-                            <div class="grid grid-cols-2 gap-2">
-                              <Input v-model="item.image_url" type="url" :placeholder="$t('globals.messages.coverImageUrl')" @change="updateHomeApps" />
-                              <Input v-model="item.url" type="url" :placeholder="$t('globals.messages.linkUrl')" @change="updateHomeApps" />
+                            <Input
+                              v-model="item.title"
+                              :placeholder="$t('globals.terms.title')"
+                              @change="updateHomeApps"
+                            />
+                            <Textarea
+                              v-model="item.description"
+                              :placeholder="$t('globals.terms.description')"
+                              rows="6"
+                              @change="updateHomeApps"
+                            />
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                              <Input
+                                v-model="item.image_url"
+                                type="url"
+                                :placeholder="$t('globals.messages.coverImageUrl')"
+                                @change="updateHomeApps"
+                              />
+                              <Input
+                                v-model="item.url"
+                                type="url"
+                                :placeholder="$t('globals.messages.linkUrl')"
+                                @change="updateHomeApps"
+                              />
                             </div>
                           </div>
                           <!-- External link fields -->
-                          <div v-else class="grid grid-cols-2 gap-2">
-                            <Input v-model="item.text" :placeholder="$t('placeholders.linkText')" @change="updateHomeApps" />
-                            <Input v-model="item.url" placeholder="https://example.com" @change="updateHomeApps" />
+                          <div v-else class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <Input
+                              v-model="item.text"
+                              :placeholder="$t('placeholders.linkText')"
+                              @change="updateHomeApps"
+                            />
+                            <Input
+                              v-model="item.url"
+                              placeholder="https://example.com"
+                              @change="updateHomeApps"
+                            />
                           </div>
                         </div>
-                        <Button type="button" variant="ghost" size="sm" @click="removeHomeApp(index)">
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          @click="removeHomeApp(index)"
+                        >
                           <X class="w-4 h-4" />
                         </Button>
                       </div>
@@ -394,12 +504,22 @@
                   </Draggable>
 
                   <div class="flex gap-2">
-                    <Button type="button" variant="outline" size="sm" @click="addHomeApp('announcement')">
-                      <Plus class="w-4 h-4"/>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      @click="addHomeApp('announcement')"
+                    >
+                      <Plus class="w-4 h-4" />
                       {{ $t('globals.messages.addAnnouncement') }}
                     </Button>
-                    <Button type="button" variant="outline" size="sm" @click="addHomeApp('external_link')">
-                      <Plus class="w-4 h-4"/>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      @click="addHomeApp('external_link')"
+                    >
+                      <Plus class="w-4 h-4" />
                       {{ $t('globals.messages.addExternalLink') }}
                     </Button>
                   </div>
@@ -411,9 +531,11 @@
 
           <!-- Launcher Configuration -->
           <div class="space-y-4">
-            <h4 class="text-base font-semibold text-foreground">{{ $t('admin.inbox.livechat.launcher') }}</h4>
+            <h4 class="text-base font-semibold text-foreground">
+              {{ $t('admin.inbox.livechat.launcher') }}
+            </h4>
 
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <!-- Launcher Position -->
               <FormField v-slot="{ componentField }" name="config.launcher.position">
                 <FormItem>
@@ -453,7 +575,7 @@
               </FormField>
             </div>
 
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <!-- Launcher Color -->
               <FormField v-slot="{ componentField }" name="config.launcher.color">
                 <FormItem>
@@ -466,13 +588,19 @@
               </FormField>
             </div>
 
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <!-- Launcher Spacing Side -->
               <FormField v-slot="{ componentField }" name="config.launcher.spacing.side">
                 <FormItem>
                   <FormLabel>{{ $t('admin.inbox.livechat.launcher.spacing.side') }}</FormLabel>
                   <FormControl>
-                    <Input type="number" placeholder="20" min="0" max="200" v-bind="componentField" />
+                    <Input
+                      type="number"
+                      placeholder="20"
+                      min="0"
+                      max="200"
+                      v-bind="componentField"
+                    />
                   </FormControl>
                   <FormDescription>{{
                     $t('admin.inbox.livechat.launcher.spacing.side.description')
@@ -486,7 +614,13 @@
                 <FormItem>
                   <FormLabel>{{ $t('admin.inbox.livechat.launcher.spacing.bottom') }}</FormLabel>
                   <FormControl>
-                    <Input type="number" placeholder="20" min="0" max="200" v-bind="componentField" />
+                    <Input
+                      type="number"
+                      placeholder="20"
+                      min="0"
+                      max="200"
+                      v-bind="componentField"
+                    />
                   </FormControl>
                   <FormDescription>{{
                     $t('admin.inbox.livechat.launcher.spacing.bottom.description')
@@ -521,7 +655,11 @@
             <FormItem>
               <FormLabel>{{ $t('admin.inbox.livechat.introductionMessage') }}</FormLabel>
               <FormControl>
-                <Textarea v-bind="componentField" :placeholder="$t('placeholders.introductionMessage')" rows="2" />
+                <Textarea
+                  v-bind="componentField"
+                  :placeholder="$t('placeholders.introductionMessage')"
+                  rows="2"
+                />
               </FormControl>
               <FormDescription>{{
                 $t('admin.inbox.livechat.greetingMessage.variables')
@@ -612,7 +750,9 @@
               <FormItem>
                 <SwitchField
                   :title="$t('admin.inbox.livechat.showOfficeHoursAfterAssignment')"
-                  :description="$t('admin.inbox.livechat.showOfficeHoursAfterAssignment.description')"
+                  :description="
+                    $t('admin.inbox.livechat.showOfficeHoursAfterAssignment.description')
+                  "
                   :checked="componentField.modelValue"
                   :disabled="!form.values.config.show_office_hours_in_chat"
                   @update:checked="handleChange"
@@ -640,7 +780,9 @@
 
           <!-- Chat Features -->
           <div class="space-y-4">
-            <h4 class="text-base font-semibold text-foreground">{{ $t('globals.terms.features') }}</h4>
+            <h4 class="text-base font-semibold text-foreground">
+              {{ $t('globals.terms.features') }}
+            </h4>
 
             <div class="space-y-3">
               <FormField
@@ -687,7 +829,7 @@
 
         <!-- Security Tab -->
         <div v-show="activeTab === 'security'" class="space-y-8">
-          <div class="grid grid-cols-2 gap-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <FormField v-slot="{ componentField }" name="secret">
               <FormItem>
                 <FormLabel>{{ $t('admin.inbox.livechat.secretKey') }}</FormLabel>
@@ -707,13 +849,15 @@
                 <FormControl>
                   <Input type="text" placeholder="10h" v-bind="componentField" />
                 </FormControl>
-                <FormDescription>{{ $t('admin.inbox.livechat.sessionDuration.description') }}</FormDescription>
+                <FormDescription>{{
+                  $t('admin.inbox.livechat.sessionDuration.description')
+                }}</FormDescription>
                 <FormMessage />
               </FormItem>
             </FormField>
           </div>
 
-          <div class="grid grid-cols-2 gap-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <FormField v-slot="{ componentField }" name="config.trusted_domains">
               <FormItem>
                 <FormLabel>{{ $t('admin.inbox.livechat.trustedDomains.list') }}</FormLabel>
@@ -758,7 +902,7 @@
         <!-- Users Tab -->
         <div v-show="activeTab === 'users'" class="space-y-8">
           <Tabs :model-value="selectedUserTab" @update:model-value="selectedUserTab = $event">
-            <TabsList class="grid w-full grid-cols-2">
+            <TabsList class="grid w-full grid-cols-1 sm:grid-cols-2">
               <TabsTrigger value="visitors">
                 {{ $t('admin.inbox.livechat.userSettings.visitors') }}
               </TabsTrigger>
@@ -779,7 +923,10 @@
                       $t('admin.inbox.livechat.startConversationButtonText')
                     }}</FormLabel>
                     <FormControl>
-                      <Input v-bind="componentField" :placeholder="$t('placeholders.startConversation')" />
+                      <Input
+                        v-bind="componentField"
+                        :placeholder="$t('placeholders.startConversation')"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -792,7 +939,9 @@
                   <FormItem>
                     <SwitchField
                       :title="$t('admin.inbox.livechat.allowStartConversation')"
-                      :description="$t('admin.inbox.livechat.allowStartConversation.visitors.description')"
+                      :description="
+                        $t('admin.inbox.livechat.allowStartConversation.visitors.description')
+                      "
                       :checked="componentField.modelValue"
                       @update:checked="handleChange"
                     />
@@ -806,7 +955,9 @@
                   <FormItem>
                     <SwitchField
                       :title="$t('admin.inbox.livechat.preventMultipleConversations')"
-                      :description="$t('admin.inbox.livechat.preventMultipleConversations.visitors.description')"
+                      :description="
+                        $t('admin.inbox.livechat.preventMultipleConversations.visitors.description')
+                      "
                       :checked="componentField.modelValue"
                       @update:checked="handleChange"
                     />
@@ -820,7 +971,9 @@
                   <FormItem>
                     <SwitchField
                       :title="$t('admin.inbox.livechat.preventReplyToClosedConversation')"
-                      :description="$t('admin.inbox.livechat.preventReplyToClosedConversation.description')"
+                      :description="
+                        $t('admin.inbox.livechat.preventReplyToClosedConversation.description')
+                      "
                       :checked="componentField.modelValue"
                       @update:checked="handleChange"
                     />
@@ -839,7 +992,10 @@
                       $t('admin.inbox.livechat.startConversationButtonText')
                     }}</FormLabel>
                     <FormControl>
-                      <Input v-bind="componentField" :placeholder="$t('placeholders.startConversation')" />
+                      <Input
+                        v-bind="componentField"
+                        :placeholder="$t('placeholders.startConversation')"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -852,7 +1008,9 @@
                   <FormItem>
                     <SwitchField
                       :title="$t('admin.inbox.livechat.allowStartConversation')"
-                      :description="$t('admin.inbox.livechat.allowStartConversation.users.description')"
+                      :description="
+                        $t('admin.inbox.livechat.allowStartConversation.users.description')
+                      "
                       :checked="componentField.modelValue"
                       @update:checked="handleChange"
                     />
@@ -866,7 +1024,9 @@
                   <FormItem>
                     <SwitchField
                       :title="$t('admin.inbox.livechat.preventMultipleConversations')"
-                      :description="$t('admin.inbox.livechat.preventMultipleConversations.users.description')"
+                      :description="
+                        $t('admin.inbox.livechat.preventMultipleConversations.users.description')
+                      "
                       :checked="componentField.modelValue"
                       @update:checked="handleChange"
                     />
@@ -880,7 +1040,9 @@
                   <FormItem>
                     <SwitchField
                       :title="$t('admin.inbox.livechat.preventReplyToClosedConversation')"
-                      :description="$t('admin.inbox.livechat.preventReplyToClosedConversation.description')"
+                      :description="
+                        $t('admin.inbox.livechat.preventReplyToClosedConversation.description')
+                      "
                       :checked="componentField.modelValue"
                       @update:checked="handleChange"
                     />
@@ -939,10 +1101,7 @@
                 language="html"
                 :readOnly="true"
               />
-              <CopyButton
-                :text="authenticatedIntegrationSnippet"
-                class="absolute top-3 right-3"
-              />
+              <CopyButton :text="authenticatedIntegrationSnippet" class="absolute top-3 right-3" />
             </div>
 
             <p class="text-sm text-destructive flex items-center gap-1.5">
@@ -1202,12 +1361,21 @@ const form = useForm({
 })
 
 const submitLabel = computed(() => {
-  return props.submitLabel || (props.isNewForm ? t('globals.messages.create') : t('globals.messages.save'))
+  return (
+    props.submitLabel ||
+    (props.isNewForm ? t('globals.messages.create') : t('globals.messages.save'))
+  )
 })
 
 const addHomeApp = (type) => {
   if (type === 'announcement') {
-    homeApps.value.push({ type: 'announcement', title: '', description: '', image_url: '', url: '' })
+    homeApps.value.push({
+      type: 'announcement',
+      title: '',
+      description: '',
+      image_url: '',
+      url: ''
+    })
   } else {
     homeApps.value.push({ type: 'external_link', text: '', url: '' })
   }

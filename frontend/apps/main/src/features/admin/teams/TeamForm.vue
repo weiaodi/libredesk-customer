@@ -7,7 +7,7 @@
         <FormControl>
           <Input type="text" v-bind="componentField" readonly @click="toggleEmojiPicker" />
           <div v-if="isEmojiPickerVisible" class="absolute z-10 mt-2">
-            <EmojiPicker :native="true" @select="onSelectEmoji" class="w-[300px]" />
+            <EmojiPicker :native="true" @select="onSelectEmoji" class="w-[calc(100vw-2rem)] sm:w-[300px]" />
           </div>
         </FormControl>
         <FormMessage />

@@ -646,10 +646,20 @@ const viewToDelete = ref(null)
   height: auto !important;
 }
 
+/* On mobile, the secondary sidebar is inside a Sheet drawer,
+   so remove the absolute positioning offsets and margin */
+@media (max-width: 768px) {
+  :deep(.sidebar-secondary) {
+    @apply ml-0 border-0 rounded-none;
+    top: 0 !important;
+    bottom: 0 !important;
+    height: 100% !important;
+  }
+}
+
 /* Override SidebarProvider height */
 :deep(.group\/sidebar-wrapper) {
   min-height: auto !important;
   height: 100%;
 }
-
 </style>

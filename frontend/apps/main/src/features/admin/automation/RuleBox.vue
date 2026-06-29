@@ -33,12 +33,12 @@
           </div>
 
           <!-- Field -->
-          <div class="flex space-x-5 items-start">
+          <div class="flex flex-col sm:flex-row sm:space-x-5 items-start gap-2 sm:gap-0">
             <Select
               v-model="rule.field"
               @update:modelValue="(value) => handleFieldChange(value, index)"
             >
-              <SelectTrigger class="w-56">
+              <SelectTrigger class="w-full sm:w-56">
                 <SelectValue :placeholder="t('placeholders.selectField')" />
               </SelectTrigger>
               <SelectContent>
@@ -66,7 +66,7 @@
               v-model="rule.operator"
               @update:modelValue="(value) => handleOperatorChange(value, index)"
             >
-              <SelectTrigger class="w-56">
+              <SelectTrigger class="w-full sm:w-56">
                 <SelectValue :placeholder="t('placeholders.selectOperator')" />
               </SelectTrigger>
               <SelectContent>

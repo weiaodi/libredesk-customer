@@ -78,7 +78,7 @@
 
                 <!-- Field Configuration -->
                 <div v-if="field.enabled" class="space-y-4">
-                  <div class="grid grid-cols-2 gap-4">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <!-- Label -->
                     <div>
                       <label class="text-sm font-medium">{{ $t('globals.terms.label') }}</label>
@@ -119,7 +119,7 @@
           <h5 class="font-medium text-sm">
             {{ $t('admin.inbox.livechat.prechatForm.availableFields') }}
           </h5>
-          <div class="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-48 overflow-y-auto">
             <div
               v-for="attr in availableCustomAttributes"
               :key="attr.id"

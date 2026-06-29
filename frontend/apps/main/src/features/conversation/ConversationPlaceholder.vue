@@ -81,7 +81,7 @@ const showGettingStarted = computed(() => !hasInboxes.value || !hasAgents.value)
 
 <style scoped>
 .placeholder-container {
-  @apply h-screen w-full flex items-center justify-center min-w-[400px] relative;
+  @apply h-screen w-full flex items-center justify-center relative;
 }
 
 .getting-started-wrapper {

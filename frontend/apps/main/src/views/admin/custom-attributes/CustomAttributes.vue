@@ -42,7 +42,7 @@
           </div>
           <div>
             <Tabs default-value="contact" v-model="appliesTo">
-              <TabsList class="grid w-full grid-cols-2 mb-5">
+              <TabsList class="grid w-full grid-cols-1 sm:grid-cols-2 mb-5">
                 <TabsTrigger value="contact">
                   {{ $t('globals.terms.contact') }}
                 </TabsTrigger>

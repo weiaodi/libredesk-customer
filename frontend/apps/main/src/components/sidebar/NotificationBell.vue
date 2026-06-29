@@ -11,7 +11,7 @@
         </span>
       </SidebarMenuButton>
     </PopoverTrigger>
-    <PopoverContent side="right" :side-offset="8" align="end" class="w-96 p-0">
+    <PopoverContent side="right" :side-offset="8" align="end" class="w-[calc(100vw-2rem)] sm:w-96 p-0">
       <NotificationPanel @close="isOpen = false" />
     </PopoverContent>
   </Popover>

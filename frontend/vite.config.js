@@ -38,6 +38,7 @@ export default defineConfig(({ mode, command }) => {
     // Separate cache per app to avoid stale/conflicting caches.
     cacheDir: path.resolve(__dirname, `node_modules/.vite-${isWidget ? 'widget' : 'main'}`),
     server: {
+      host: '0.0.0.0',
       cors: { origin: "*" },
       // Allow access to parent dir so shared-ui imports work in dev.
       fs: {

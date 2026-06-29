@@ -2,8 +2,8 @@
   <form @submit.prevent="onSubmit" class="space-y-8">
     <!-- Summary Section -->
     <div class="bg-muted/30 box py-6 px-3" v-if="!isNewForm">
-      <div class="flex items-start gap-6">
-        <Avatar class="w-20 h-20">
+      <div class="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
+        <Avatar class="w-16 h-16 sm:w-20 sm:h-20 shrink-0">
           <AvatarImage :src="props.initialValues.avatar_url || ''" :alt="Avatar" />
           <AvatarFallback>
             {{ getInitials(props.initialValues.first_name, props.initialValues.last_name) }}

@@ -1,9 +1,13 @@
 <template>
-  <div class="h-screen flex flex-col">
+  <div class="h-full flex flex-col">
     <!-- Header -->
-    <div class="flex items-center space-x-4 px-2 h-12 border-b shrink-0">
-      <SidebarTrigger class="cursor-pointer" />
-      <span class="text-xl font-semibold">{{ title }}</span>
+    <div class="flex items-center gap-2 px-2 h-12 border-b shrink-0">
+      <!-- Mobile: visible hamburger menu; Desktop: default SidebarTrigger -->
+      <SidebarTrigger v-if="!isMobile" class="cursor-pointer" />
+      <Button v-else variant="ghost" size="icon" class="h-9 w-9" @click="toggleSidebar">
+        <Menu class="h-5 w-5" />
+      </Button>
+      <span class="text-lg font-semibold truncate">{{ title }}</span>
     </div>
 
     <!-- Bulk Action Toolbar (when items selected) -->
@@ -151,7 +155,7 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { MessageCircleQuestion, MessageCircleWarning, ChevronDown, Loader2 } from 'lucide-vue-next'
+import { MessageCircleQuestion, MessageCircleWarning, ChevronDown, Loader2, Menu } from 'lucide-vue-next'
 import { Button } from '@shared-ui/components/ui/button'
 import {
   DropdownMenu,
@@ -159,7 +163,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from '@shared-ui/components/ui/dropdown-menu'
-import { SidebarTrigger } from '@shared-ui/components/ui/sidebar'
+import { SidebarTrigger, useSidebar } from '@shared-ui/components/ui/sidebar'
+import { useIsMobile } from '@/composables/useIsMobile'
 import { useConversationStore } from '@/stores/conversation'
 import { useBulkActionPermissions } from '@/composables/useBulkActionPermissions'
 import EmptyList from '@/features/conversation/list/ConversationEmptyList.vue'
@@ -171,6 +176,8 @@ const conversationStore = useConversationStore()
 const { canBulkAct } = useBulkActionPermissions()
 const route = useRoute()
 const { t } = useI18n()
+const isMobile = useIsMobile()
+const { toggleSidebar } = useSidebar()
 
 const hasSelection = computed(() => conversationStore.selectedCount > 0)
 

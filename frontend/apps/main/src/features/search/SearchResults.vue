@@ -139,10 +139,10 @@ watch(
 // Dynamic grid class based on number of tabs
 const tabsGridClass = computed(() => {
   const tabCount = Object.keys(props.results).length
-  if (tabCount <= 2) return 'grid-cols-2'
-  if (tabCount <= 3) return 'grid-cols-3'
-  if (tabCount <= 4) return 'grid-cols-4'
-  return 'grid-cols-5'
+  if (tabCount <= 2) return 'grid-cols-1 sm:grid-cols-2'
+  if (tabCount <= 3) return 'grid-cols-2 sm:grid-cols-3'
+  if (tabCount <= 4) return 'grid-cols-2 sm:grid-cols-4'
+  return 'grid-cols-2 sm:grid-cols-5'
 })
 
 const formatDate = (dateString) => {

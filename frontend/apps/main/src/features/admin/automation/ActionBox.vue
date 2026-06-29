@@ -9,7 +9,7 @@
         <div class="space-y-3">
           <div class="flex items-center justify-between">
             <div class="flex gap-5">
-              <div class="w-48">
+              <div class="w-full sm:w-48">
                 <!-- Type -->
                 <Select
                   v-model="action.type"
@@ -45,7 +45,7 @@
               </div>
 
               <div
-                class="w-48"
+                class="w-full sm:w-48"
                 v-if="action.type && conversationActions[action.type]?.type === 'select'"
               >
                 <SelectComboBox

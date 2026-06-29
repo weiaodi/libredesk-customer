@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen flex flex-col bg-secondary">
-    <main class="flex-1 flex items-start justify-center pt-[15vh] p-4">
+    <main class="flex-1 flex items-start justify-center pt-[10vh] md:pt-[15vh] p-4">
       <div class="w-full max-w-sm">
         <slot></slot>
       </div>

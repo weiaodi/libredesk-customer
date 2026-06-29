@@ -1,6 +1,6 @@
 <template>
   <Tabs default-value="new_conversation" v-model="selectedTab">
-    <TabsList class="grid w-full grid-cols-3 mb-5">
+    <TabsList class="grid w-full grid-cols-1 sm:grid-cols-3 mb-5">
       <TabsTrigger value="new_conversation">
         {{
           $t('conversation.newConversation')

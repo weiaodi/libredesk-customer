@@ -2,8 +2,12 @@
   <div class="flex flex-col h-full">
     <!-- Header -->
     <div class="h-12 flex-shrink-0 px-2 border-b flex items-center justify-between">
-      <div>
-        <span>{{ conversationStore.currentContactName }}</span>
+      <div class="flex items-center gap-2 min-w-0">
+        <!-- Mobile back button -->
+        <Button v-if="isMobile" variant="ghost" size="icon" class="h-8 w-8 shrink-0" @click="goBack">
+          <ArrowLeft class="w-4 h-4" />
+        </Button>
+        <span class="truncate">{{ conversationStore.currentContactName }}</span>
       </div>
       <div class="flex items-center gap-2">
         <DropdownMenu>
@@ -52,7 +56,7 @@
 
 <script setup>
 import { useConversationStore } from '../../stores/conversation'
-import { MoreHorizontal } from 'lucide-vue-next'
+import { MoreHorizontal, ArrowLeft } from 'lucide-vue-next'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -65,12 +69,34 @@ import ReplyBox from './ReplyBox.vue'
 import { EMITTER_EVENTS } from '../../constants/emitterEvents.js'
 import { CONVERSATION_DEFAULT_STATUSES } from '../../constants/conversation'
 import { useEmitter } from '../../composables/useEmitter'
+import { useIsMobile } from '@/composables/useIsMobile'
 import { useI18n } from 'vue-i18n'
 import { handleHTTPError } from '@shared-ui/utils/http.js'
+import { useRouter, useRoute } from 'vue-router'
 import api from '@main/api'
+
 const conversationStore = useConversationStore()
 const emitter = useEmitter()
 const { t } = useI18n()
+const isMobile = useIsMobile()
+const router = useRouter()
+const route = useRoute()
+
+// Mobile: navigate back to conversation list
+const goBack = () => {
+  // Determine the parent inbox route from current path
+  const path = route.path
+  if (path.includes('/teams/')) {
+    const teamID = route.params.teamID
+    router.push({ name: 'team-inbox', params: { teamID } })
+  } else if (path.includes('/views/')) {
+    const viewID = route.params.viewID
+    router.push({ name: 'view-inbox', params: { viewID } })
+  } else {
+    const type = route.params.type || 'assigned'
+    router.push({ name: 'inbox', params: { type } })
+  }
+}
 
 const downloadTranscript = async () => {
   const conversation = conversationStore.current

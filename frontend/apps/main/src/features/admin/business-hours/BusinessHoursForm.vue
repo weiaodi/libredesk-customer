@@ -119,19 +119,19 @@
           <DialogDescription />
         </DialogHeader>
         <div class="grid gap-4 py-4">
-          <div class="grid grid-cols-4 items-center gap-4">
-            <Label for="holiday_name" class="text-right"> {{ t('globals.terms.name') }} </Label>
-            <Input id="holiday_name" ref="holidayNameRef" v-model="holidayName" class="col-span-3" />
+          <div class="grid grid-cols-1 sm:grid-cols-4 items-center gap-2 sm:gap-4">
+            <Label for="holiday_name" class="sm:text-right"> {{ t('globals.terms.name') }} </Label>
+            <Input id="holiday_name" ref="holidayNameRef" v-model="holidayName" class="sm:col-span-3" />
           </div>
-          <div class="grid grid-cols-4 items-center gap-4">
-            <Label for="date" class="text-right"> {{ t('globals.terms.date') }} </Label>
+          <div class="grid grid-cols-1 sm:grid-cols-4 items-center gap-2 sm:gap-4">
+            <Label for="date" class="sm:text-right"> {{ t('globals.terms.date') }} </Label>
             <Popover :open="datePickerOpen" @update:open="datePickerOpen = $event">
               <PopoverTrigger as-child>
                 <Button
                   variant="outline"
                   :class="
                     cn(
-                      'w-[280px] justify-start text-left font-normal',
+                      'w-full sm:w-[280px] justify-start text-left font-normal',
                       !holidayDate && 'text-muted-foreground'
                     )
                   "

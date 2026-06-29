@@ -17,7 +17,7 @@
             </Button>
           </PopoverTrigger>
           <PopoverContent class="w-full p-4 flex flex-col gap-4">
-            <div class="w-[32rem]">
+            <div class="w-full sm:w-[32rem]">
               <FilterBuilder
                 :fields="filterFields"
                 :showButtons="true"
@@ -36,7 +36,7 @@
               <ArrowDownWideNarrow size="18" class="text-muted-foreground cursor-pointer" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent class="w-[200px] p-4 flex flex-col gap-4">
+          <PopoverContent class="w-[calc(100vw-2rem)] sm:w-[200px] p-4 flex flex-col gap-4">
             <!-- order by field -->
             <Select v-model="orderByField" @update:model-value="fetchActivityLogs">
               <SelectTrigger class="h-8 w-full">

@@ -10,7 +10,7 @@
         class="flex justify-center space-y-4 w-full"
         :class="{ 'loading-fade': formLoading }"
       >
-        <div class="flex flex-col w-full mt-12">
+        <div class="flex flex-col w-full mt-6 md:mt-12 px-2 md:px-0">
           <div class="flex flex-col space-y-2">
             <AvatarUpload
               @upload="onUpload"

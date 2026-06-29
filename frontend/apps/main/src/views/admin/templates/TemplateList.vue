@@ -15,7 +15,7 @@
     </div>
     <div>
       <Tabs default-value="email_outgoing" v-model="templateType">
-        <TabsList class="grid w-full grid-cols-2 mb-5">
+        <TabsList class="grid w-full grid-cols-1 sm:grid-cols-2 mb-5">
           <TabsTrigger value="email_outgoing">
             {{ $t('admin.template.outgoingEmailTemplates') }}
           </TabsTrigger>

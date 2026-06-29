@@ -1,7 +1,7 @@
 <template>
   <div class="overflow-y-auto">
     <div
-      class="p-6 w-[calc(100%-3rem)]"
+      class="p-3 sm:p-6 w-full"
       :class="{ 'opacity-50 transition-opacity duration-300': isLoading }"
     >
       <Spinner v-if="isLoading" />
@@ -12,7 +12,7 @@
         </div>
 
         <!-- Row 1: Open Conversations and Agent Status -->
-        <div class="flex w-full space-x-4">
+        <div class="flex flex-col md:flex-row w-full space-y-4 md:space-y-0 md:space-x-4">
           <Card
             class="flex-1"
             :title="$t('report.openConversations')"
@@ -30,7 +30,7 @@
         </div>
 
         <!-- Row 2: CSAT and Message Volume -->
-        <div class="flex w-full space-x-4">
+        <div class="flex flex-col md:flex-row w-full space-y-4 md:space-y-0 md:space-x-4">
           <!-- CSAT Card -->
           <div class="flex-1 box p-5">
             <div class="flex justify-between items-center mb-4">
@@ -66,7 +66,7 @@
                 :label="''"
               />
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
               <div class="metric-item">
                 <span class="metric-value">{{
                   formatCompactNumber(messageVolumeData.total_messages || 0)
@@ -102,7 +102,7 @@
             <DateFilter @filter-change="(d) => handleFilterChange('sla', d)" :label="''" />
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
             <!-- First Response -->
             <div class="space-y-4">
               <p class="section-title">{{ $t('report.sla.firstResponse') }}</p>
@@ -135,7 +135,7 @@
             </div>
 
             <!-- Next Response -->
-            <div class="space-y-4 border-l border-r px-8">
+            <div class="space-y-4 md:border-l md:border-r md:px-8">
               <p class="section-title">{{ $t('report.sla.nextResponse') }}</p>
               <div class="metric-item">
                 <span class="metric-value text-green-600"
