@@ -230,5 +230,6 @@ func (c *Client) SendMessage(b []byte, typ byte) {
 	select {
 	case c.Send <- models.WSMessage{Data: b, MessageType: websocket.TextMessage}:
 	default:
+		c.Hub.lo.Warn("client send channel full, dropping message", "client_id", c.ID, "channel_cap", cap(c.Send))
 	}
 }
